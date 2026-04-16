@@ -20,8 +20,8 @@
 #
 #############################################################################
 {
-    'name': 'Send Whatsapp Message Odoo18',
-    'version': '18.0.1.0.0',
+    'name': 'Send Whatsapp Message Odoo19',
+    'version': '19.0.1.0.0',
     'category': 'Extra Tools',
     'summary': 'Whatspp Web,Whatsapp Odoo Integration, Odoo Whatsapp Connector, Odoo Whatsapp, Whatsapp Connector, Whatsapp Integration, Odoo17, Whatsapp, Odoo Apps',
     'description': 'This module helps you to directly send messages to your '

@@ -1,6 +1,6 @@
 {
     'name': 'HR Attendance Control',
-    'version': '16.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Human Resources/Attendances',
     'summary': 'Force checkout, auto daily checkout at 23:59, and login time restriction',
     'description': """
