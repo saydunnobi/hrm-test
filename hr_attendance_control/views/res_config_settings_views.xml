@@ -6,76 +6,34 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='hr_attendance']" position="after">
+            <xpath expr="//app[@name='hr_attendance']" position="inside">
 
-                <h2>Attendance Control</h2>
+                <block title="Attendance Control" name="attendance_control_setting_container">
+                    <setting string="Force Checkout" help="Automatically check-out an employee's open attendance when they start a new check-in.">
+                        <field name="attendance_force_checkout"/>
+                    </setting>
+                    
+                    <setting string="Auto Checkout Previous Days" help="During the nightly cron, also close any attendance that was left open from a previous day.">
+                        <field name="attendance_checkout_previous_days"/>
+                    </setting>
 
-                <!-- Force checkout -->
-                <div class="row mt16 o_settings_container" id="attendance_control_force">
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane">
-                            <field name="attendance_force_checkout"/>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="attendance_force_checkout"/>
-                            <div class="text-muted">
-                                Automatically check-out an employee's open attendance
-                                when they start a new check-in.
+                    <setting string="Restrict Login / Check-in Time" help="Block Odoo login and attendance check-in during a specified time window. Admin is never blocked.">
+                        <field name="attendance_restrict_login"/>
+                        <div invisible="not attendance_restrict_login" class="content-group mt-3">
+                            <div class="row w-100">
+                                <label for="attendance_restrict_from" class="col-4 o_light_label" string="Restricted From" />
+                                <field name="attendance_restrict_from" widget="float_time" class="col-8 col-lg-6 oe_inline" />
+                            </div>
+                            <div class="row w-100 mt-2">
+                                <label for="attendance_restrict_to" class="col-4 o_light_label" string="Restricted Until" />
+                                <field name="attendance_restrict_to" widget="float_time" class="col-8 col-lg-6 oe_inline" />
+                            </div>
+                            <div class="text-muted mt-2">
+                                Use 24-hour format. The range can span midnight (e.g. 23:00 – 05:00).
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane">
-                            <field name="attendance_checkout_previous_days"/>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="attendance_checkout_previous_days"/>
-                            <div class="text-muted">
-                                During the nightly cron, also close any attendance
-                                that was left open from a previous day.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Restricted login time -->
-                <div class="row mt16 o_settings_container" id="attendance_control_restrict">
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane">
-                            <field name="attendance_restrict_login"/>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="attendance_restrict_login"/>
-                            <div class="text-muted">
-                                Block Odoo login and attendance check-in during a
-                                specified time window.
-                            </div>
-                            <div attrs="{'invisible': [('attendance_restrict_login', '=', False)]}">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <label for="attendance_restrict_from"
-                                               string="Restricted From"/>
-                                        <field name="attendance_restrict_from"
-                                               widget="float_time"
-                                               class="oe_inline"/>
-                                    </div>
-                                    <div class="col-auto">
-                                        <label for="attendance_restrict_to"
-                                               string="Restricted Until"/>
-                                        <field name="attendance_restrict_to"
-                                               widget="float_time"
-                                               class="oe_inline"/>
-                                    </div>
-                                </div>
-                                <div class="text-muted mt4">
-                                    Use 24-hour format. The range can span midnight
-                                    (e.g. 23:00 – 05:00). Admin is never blocked.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </setting>
+                </block>
 
             </xpath>
         </field>

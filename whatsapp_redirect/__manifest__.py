@@ -30,7 +30,7 @@
     'maintainer': 'Cybrosys Techno Solutions',
     'company': 'Cybrosys Techno Solutions',
     'website': 'https://www.cybrosys.com',
-    'depends': ['base', 'contacts'],
+    'depends': ['base', 'contacts', 'crm'],
     'data': [
         'security/ir.model.access.csv',
         'views/res_partner_views.xml',
