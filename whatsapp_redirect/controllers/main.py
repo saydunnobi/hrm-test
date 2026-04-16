@@ -1,79 +1,101 @@
+# -*- coding: utf-8 -*-
+# Author: Saydun Nobi
 import json
 import logging
+import requests
 
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
-class WhatsappWebhook(http.Controller):
 
-    @http.route('/whatsapp/webhook', type='http', auth='public', methods=['GET', 'POST'], csrf=False)
-    def whatsapp_webhook(self, **kwargs):
-        """
-        Webhook endpoint for Meta WhatsApp Cloud API.
-        Handles GET for verification and POST for incoming messages.
-        """
-        if request.httprequest.method == 'GET':
-            # Meta App Verification
-            # In a production environment, this token should be a system parameter.
-            verify_token = "odoo_whatsapp_token" 
-            hub_mode = kwargs.get('hub.mode')
-            hub_verify_token = kwargs.get('hub.verify_token')
-            hub_challenge = kwargs.get('hub.challenge')
+class WhatsAppWebhook(http.Controller):
 
-            if hub_mode == 'subscribe' and hub_verify_token == verify_token:
-                _logger.info('WhatsApp Webhook verified successfully.')
-                return request.make_response(hub_challenge, headers=[('Content-Type', 'text/plain')])
-            return request.make_response("Verification failed", status=403)
+    # ── Webhook Verification (GET) ─────────────────────────────────────────────
+    @http.route('/whatsapp/webhook', type='http', auth='public',
+                methods=['GET'], csrf=False)
+    def verify_webhook(self, **kwargs):
+        ICP = request.env['ir.config_parameter'].sudo()
+        verify_token = ICP.get_param('whatsapp_business.verify_token', '')
 
-        if request.httprequest.method == 'POST':
-            try:
-                data = json.loads(request.httprequest.data)
-                _logger.info("Received WhatsApp Payload: %s", data)
+        hub_mode = kwargs.get('hub.mode')
+        hub_verify_token = kwargs.get('hub.verify_token')
+        hub_challenge = kwargs.get('hub.challenge', '')
 
-                # Parse the Meta WhatsApp JSON structure
-                if data.get('object') == 'whatsapp_business_account':
-                    for entry in data.get('entry', []):
-                        for change in entry.get('changes', []):
-                            value = change.get('value', {})
-                            messages = value.get('messages', [])
-                            contacts = value.get('contacts', [])
-                            
-                            for message in messages:
-                                if message.get('type') == 'text':
-                                    phone_number = message.get('from')
-                                    text_body = message.get('text', {}).get('body', '')
-                                    
-                                    # Find contact name if available
-                                    contact_name = "WhatsApp User"
-                                    for contact in contacts:
-                                        if contact.get('wa_id') == phone_number:
-                                            contact_name = contact.get('profile', {}).get('name', 'WhatsApp User')
+        if hub_mode == 'subscribe' and hub_verify_token == verify_token:
+            _logger.info('WhatsApp webhook verified.')
+            return request.make_response(hub_challenge, headers=[('Content-Type', 'text/plain')])
+        return request.make_response('Forbidden', status=403)
 
-                                    # Create the Lead
-                                    self._create_whatsapp_lead(phone_number, contact_name, text_body)
+    # ── Incoming Messages (POST) ───────────────────────────────────────────────
+    @http.route('/whatsapp/webhook', type='http', auth='public',
+                methods=['POST'], csrf=False)
+    def receive_message(self, **kwargs):
+        try:
+            data = json.loads(request.httprequest.data)
+            _logger.info('WhatsApp payload received: %s', data)
 
-                return request.make_response(json.dumps({'status': 'ok'}), headers=[('Content-Type', 'application/json')])
+            if data.get('object') != 'whatsapp_business_account':
+                return request.make_response('ok', headers=[('Content-Type', 'text/plain')])
 
-            except Exception as e:
-                _logger.error("Error processing WhatsApp webhook: %s", str(e))
-                return request.make_response("Error", status=500)
+            for entry in data.get('entry', []):
+                for change in entry.get('changes', []):
+                    value = change.get('value', {})
+                    messages = value.get('messages', [])
+                    contacts = value.get('contacts', [])
 
-    def _create_whatsapp_lead(self, phone_number, contact_name, text_body):
-        """Creates a CRM Lead from an incoming WhatsApp message"""
-        # Search for an existing active lead from this phone to avoid duplicates if preferred.
-        # Here we always create a new lead based on the user's prompt.
+                    for message in messages:
+                        if message.get('type') != 'text':
+                            continue
+                        phone = message.get('from', '')
+                        text = message.get('text', {}).get('body', '')
+                        wa_id = message.get('id', '')
+
+                        # Resolve name from contacts block
+                        sender_name = 'Unknown'
+                        for c in contacts:
+                            if c.get('wa_id') == phone:
+                                sender_name = c.get('profile', {}).get('name', 'Unknown')
+                                break
+
+                        self._handle_incoming(phone, sender_name, text, wa_id)
+
+            return request.make_response(
+                json.dumps({'status': 'ok'}),
+                headers=[('Content-Type', 'application/json')]
+            )
+        except Exception as e:
+            _logger.error('WhatsApp webhook error: %s', str(e))
+            return request.make_response('error', status=500)
+
+    def _handle_incoming(self, phone, sender_name, text, wa_id):
         env = request.env(su=True)
-        formatted_phone = "+" + phone_number if not phone_number.startswith("+") else phone_number
-        
-        lead_vals = {
-            'name': f'WhatsApp Request - {contact_name}',
-            'contact_name': contact_name,
-            'phone': formatted_phone,
-            'description': f"Incoming WhatsApp Message:\n{text_body}",
-            'type': 'lead',
-        }
-        
-        lead = env['crm.lead'].create(lead_vals)
-        _logger.info("Created new CRM Lead (ID: %s) from WhatsApp number: %s", lead.id, phone_number)
+        ICP = env['ir.config_parameter']
+        auto_lead = str(ICP.get_param('whatsapp_business.auto_lead', 'False')).lower() in ('1', 'true', 'yes')
+
+        # Find or create conversation
+        conv = env['whatsapp.conversation'].search([('phone_number', '=', phone)], limit=1)
+        if not conv:
+            conv = env['whatsapp.conversation'].create({
+                'phone_number': phone,
+                'contact_name': sender_name,
+                'last_message_at': fields.Datetime.now(),
+            })
+        else:
+            if sender_name and sender_name != 'Unknown':
+                conv.write({'contact_name': sender_name})
+            conv.write({'last_message_at': fields.Datetime.now()})
+
+        # Save message
+        env['whatsapp.message'].create({
+            'conversation_id': conv.id,
+            'direction': 'inbound',
+            'body': text,
+            'wa_message_id': wa_id,
+            'is_read': False,
+        })
+
+        # Auto-create lead if setting is on and not already converted
+        if auto_lead and conv.state == 'open' and not conv.lead_id:
+            conv.action_convert_to_lead()

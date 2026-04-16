@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="whatsapp_config_settings_view" model="ir.ui.view">
+        <field name="name">res.config.settings.view.whatsapp.business</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.action_general_configuration"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="WhatsApp Business" name="whatsapp_redirect" groups="base.group_system">
+                    <block title="WhatsApp Business Cloud API" name="whatsapp_settings_block">
+                        <setting string="Phone Number ID"
+                                 help="Found in Meta Developer Console → WhatsApp → API Setup. Example: 123456789012345">
+                            <field name="whatsapp_phone_number_id" placeholder="e.g. 123456789012345"/>
+                        </setting>
+                        <setting string="Access Token"
+                                 help="Temporary or permanent access token from Meta Developer Console.">
+                            <field name="whatsapp_access_token" password="True"/>
+                        </setting>
+                        <setting string="Webhook Verify Token"
+                                 help="A secret string you choose at registration. Enter the same in Meta Webhooks.">
+                            <field name="whatsapp_verify_token" placeholder="e.g. my_secret_token"/>
+                        </setting>
+                        <setting string="Auto-create CRM Lead"
+                                 help="Automatically create a CRM Lead when a new unknown number sends a message.">
+                            <field name="whatsapp_auto_lead"/>
+                        </setting>
+                        <setting string="Webhook URL"
+                                 help="Copy this URL and paste in Meta WhatsApp Webhook configuration.">
+                            <div>
+                                <code>/whatsapp/webhook</code>
+                                <span class="text-muted ms-2">(e.g. https://your-odoo.com/whatsapp/webhook)</span>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

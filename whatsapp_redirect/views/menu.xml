@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_whatsapp_root"
+              name="WhatsApp"
+              sequence="5"
+              web_icon="whatsapp_redirect,static/description/icon.png"/>
+
+    <menuitem id="menu_whatsapp_inbox"
+              name="Inbox"
+              parent="menu_whatsapp_root"
+              action="whatsapp_conversation_action"
+              sequence="10"/>
+</odoo>

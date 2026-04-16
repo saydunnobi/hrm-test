@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Send wizard view -->
+    <record id="whatsapp_send_wizard_view_form" model="ir.ui.view">
+        <field name="name">whatsapp.send.wizard.view.form</field>
+        <field name="model">whatsapp.send.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send WhatsApp Message">
+                <sheet>
+                    <group>
+                        <field name="conversation_id" invisible="1"/>
+                        <field name="phone_number" readonly="1"/>
+                        <field name="body" placeholder="Type your message..." widget="text"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_send" string="📤 Send" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

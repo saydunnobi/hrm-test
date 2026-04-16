@@ -1,44 +1,37 @@
 # -*- coding: utf-8 -*-
-#############################################################################
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2024-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
-#    Author: Rosmy John (odoo@cybrosys.com)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-#############################################################################
+# ============================================================================
+#  WhatsApp Business Chat for Odoo 19
+#  Author: Saydun Nobi
+#  License: LGPL-3
+# ============================================================================
 {
-    'name': 'Send Whatsapp Message Odoo19',
+    'name': 'WhatsApp Business Chat',
     'version': '19.0.1.0.0',
-    'category': 'Extra Tools',
-    'summary': 'Whatspp Web,Whatsapp Odoo Integration, Odoo Whatsapp Connector, Odoo Whatsapp, Whatsapp Connector, Whatsapp Integration, Odoo17, Whatsapp, Odoo Apps',
-    'description': 'This module helps you to directly send messages to your '
-                   'contacts through WhatsApp web.',
-    'author': 'Cybrosys Techno solutions',
-    'maintainer': 'Cybrosys Techno Solutions',
-    'company': 'Cybrosys Techno Solutions',
-    'website': 'https://www.cybrosys.com',
-    'depends': ['base', 'contacts', 'crm'],
+    'category': 'Discuss/WhatsApp',
+    'summary': 'Use WhatsApp Business from Odoo — send, receive messages and create CRM leads. One number. One inbox.',
+    'description': """
+WhatsApp Business Chat
+======================
+Login with your WhatsApp Business number and use Odoo like your personal WhatsApp:
+- View all incoming messages in a real chat interface
+- Reply directly from Odoo
+- Automatically create CRM leads from unknown senders
+- Incoming messages from known contacts are linked automatically
+- Supports text, emojis
+- Webhook powered by Meta WhatsApp Cloud API
+    """,
+    'author': 'Saydun Nobi',
+    'depends': ['mail', 'crm', 'contacts'],
     'data': [
         'security/ir.model.access.csv',
-        'views/res_partner_views.xml',
-        'wizard/whatsapp_send_message_views.xml',
+        'views/whatsapp_conversation_views.xml',
+        'views/whatsapp_message_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/menu.xml',
     ],
-    'images': ['static/description/banner.jpg'],
-    'license': 'AGPL-3',
+    'images': ['static/description/icon.png'],
     'installable': True,
     'auto_install': False,
-    'application': False,
+    'application': True,
+    'license': 'LGPL-3',
 }
