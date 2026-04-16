@@ -10,7 +10,7 @@
         - Daily scheduled auto check-out at 23:59 PM
         - Restrict employee login/check-in within a configured time range
     """,
-    'author': 'Custom',
+    'author': 'Saydun Nobi',
     'depends': ['hr_attendance', 'base_setup'],
     'data': [
         'security/ir.model.access.csv',

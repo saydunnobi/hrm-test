@@ -6,26 +6,19 @@
         <field name="name">messenger.message.view.list</field>
         <field name="model">messenger.message</field>
         <field name="arch" type="xml">
-            <list string="Incoming Messages"
-                  decoration-success="state == 'converted'"
-                  decoration-muted="state == 'ignored'"
-                  decoration-info="state == 'new'">
+            <tree string="Incoming Messages">
                 <field name="received_at"/>
                 <field name="source"/>
                 <field name="sender_name"/>
                 <field name="message_text"/>
-                <field name="state" widget="badge"
-                       decoration-success="state == 'converted'"
-                       decoration-warning="state == 'new'"
-                       decoration-secondary="state == 'ignored'"/>
-                <field name="lead_id" optional="show"/>
+                <field name="state"/>
+                <field name="lead_id"/>
                 <button name="action_convert_to_lead"
-                        string="→ Convert to Lead"
+                        string="Convert to Lead"
                         type="object"
-                        class="btn-primary"
-                        invisible="state != 'new'"
+                        class="btn-primary btn-sm"
                         icon="fa-user-plus"/>
-            </list>
+            </tree>
         </field>
     </record>
 

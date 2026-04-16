@@ -34,8 +34,6 @@ class WhatsAppMessage(models.Model):
         ('failed', 'Failed'),
     ], string='Status', default='sent')
 
-    def _count_if_any(self):
-        return len(self)
 
 
 class WhatsAppSendWizard(models.TransientModel):

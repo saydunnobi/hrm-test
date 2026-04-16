@@ -88,9 +88,9 @@ class WhatsAppConversation(models.Model):
 
     def _compute_unread(self):
         for rec in self:
-            rec.unread_count = rec.message_ids.filtered(
+            rec.unread_count = len(rec.message_ids.filtered(
                 lambda m: m.direction == 'inbound' and not m.is_read
-            )._count_if_any()
+            ))
 
     # ── Actions ───────────────────────────────────────────────────────────────
 

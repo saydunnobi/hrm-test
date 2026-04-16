@@ -6,27 +6,19 @@
         <field name="name">whatsapp.conversation.view.list</field>
         <field name="model">whatsapp.conversation</field>
         <field name="arch" type="xml">
-            <list string="WhatsApp Conversations"
-                  decoration-info="state == 'open'"
-                  decoration-success="state == 'converted'"
-                  decoration-muted="state == 'closed'">
+            <tree string="WhatsApp Conversations">
                 <field name="last_message_at" string="Last Message"/>
                 <field name="contact_name" string="Name"/>
                 <field name="phone_number" string="Phone"/>
                 <field name="last_message_preview" string="Preview"/>
-                <field name="unread_count" string="Unread" optional="show"/>
-                <field name="state" widget="badge"
-                       decoration-info="state == 'open'"
-                       decoration-success="state == 'converted'"
-                       decoration-secondary="state == 'closed'"/>
-                <field name="lead_id" optional="show"/>
+                <field name="state"/>
+                <field name="lead_id"/>
                 <button name="action_convert_to_lead"
                         string="→ Lead"
                         type="object"
-                        class="btn-primary"
-                        invisible="state == 'converted'"
+                        class="btn-primary btn-sm"
                         icon="fa-user-plus"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -73,9 +65,9 @@
                     <notebook>
                         <page string="💬 Chat">
                             <field name="message_ids" nolabel="1"
-                                   mode="list" readonly="1"
+                                   mode="tree" readonly="1"
                                    widget="one2many">
-                                <list string="Messages" decoration-info="direction == 'inbound'"
+                                <tree string="Messages" decoration-info="direction == 'inbound'"
                                       decoration-success="direction == 'outbound'">
                                     <field name="create_date" string="Time"/>
                                     <field name="direction" string="Dir"
@@ -85,7 +77,7 @@
                                     <field name="body" string="Message"/>
                                     <field name="status" optional="show"/>
                                     <field name="is_read" optional="hide"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
