@@ -6,7 +6,7 @@
         <field name="name">whatsapp.conversation.view.list</field>
         <field name="model">whatsapp.conversation</field>
         <field name="arch" type="xml">
-            <list string="WhatsApp Conversations">
+            <list>
                 <field name="last_message_at" string="Last Message"/>
                 <field name="contact_name" string="Name"/>
                 <field name="phone_number" string="Phone"/>
@@ -15,9 +15,7 @@
                 <field name="lead_id"/>
                 <button name="action_convert_to_lead"
                         string="→ Lead"
-                        type="object"
-                        class="btn-primary btn-sm"
-                        icon="fa-user-plus"/>
+                        type="object"/>
             </list>
         </field>
     </record>
@@ -30,7 +28,7 @@
             <form string="WhatsApp Chat">
                 <header>
                     <button name="action_convert_to_lead"
-                            string="Convert to CRM Lead"
+                            string="Convert to Lead"
                             type="object"
                             class="btn-primary"
                             invisible="state == 'converted'"/>
@@ -67,13 +65,9 @@
                             <field name="message_ids" nolabel="1"
                                    mode="list" readonly="1"
                                    widget="one2many">
-                                <list string="Messages" decoration-info="direction == 'inbound'"
-                                      decoration-success="direction == 'outbound'">
+                                <list>
                                     <field name="create_date" string="Time"/>
-                                    <field name="direction" string="Dir"
-                                           widget="badge"
-                                           decoration-info="direction == 'inbound'"
-                                           decoration-success="direction == 'outbound'"/>
+                                    <field name="direction" string="Dir"/>
                                     <field name="body" string="Message"/>
                                     <field name="status" optional="show"/>
                                     <field name="is_read" optional="hide"/>
@@ -99,7 +93,7 @@
                 <filter string="Has Unread" name="unread" domain="[('unread_count','>',0)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
-                    <filter string="Date" name="group_date" context="{'group_by':'last_message_at:day'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by':'last_message_at'}"/>
                 </group>
             </search>
         </field>
@@ -109,7 +103,7 @@
     <record id="whatsapp_conversation_action" model="ir.actions.act_window">
         <field name="name">WhatsApp Inbox</field>
         <field name="res_model">whatsapp.conversation</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="whatsapp_conversation_view_search"/>
         <field name="context">{'search_default_open': 1}</field>
         <field name="help" type="html">
