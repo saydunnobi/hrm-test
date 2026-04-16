@@ -84,10 +84,10 @@ class HrAttendance(models.Model):
             h_to, m_to = self._float_to_time(restrict_to)
             raise AccessError(
                 _(
-                    'Check-in is not allowed between %(from)s and %(to)s. '
+                    'Check-in is not allowed between %(time_from)s and %(time_to)s. '
                     'Please try again outside the restricted period.',
-                    from='%02d:%02d' % (h_from, m_from),
-                    to='%02d:%02d' % (h_to, m_to),
+                    time_from='%02d:%02d' % (h_from, m_from),
+                    time_to='%02d:%02d' % (h_to, m_to),
                 )
             )
 
@@ -258,8 +258,9 @@ class ResUsers(models.Model):
                 return '%02d:%02d' % (h, m)
             raise AccessError(
                 _(
-                    'System login is not allowed between %(from)s and %(to)s.',
-                    **{'from': _fmt(restrict_from), 'to': _fmt(restrict_to)},
+                    'System login is not allowed between %(time_from)s and %(time_to)s.',
+                    time_from=_fmt(restrict_from), 
+                    time_to=_fmt(restrict_to)
                 )
             )
 
