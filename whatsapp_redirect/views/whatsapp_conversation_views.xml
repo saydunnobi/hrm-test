@@ -6,7 +6,7 @@
         <field name="name">whatsapp.conversation.view.list</field>
         <field name="model">whatsapp.conversation</field>
         <field name="arch" type="xml">
-            <tree string="WhatsApp Conversations">
+            <list string="WhatsApp Conversations">
                 <field name="last_message_at" string="Last Message"/>
                 <field name="contact_name" string="Name"/>
                 <field name="phone_number" string="Phone"/>
@@ -18,7 +18,7 @@
                         type="object"
                         class="btn-primary btn-sm"
                         icon="fa-user-plus"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -65,9 +65,9 @@
                     <notebook>
                         <page string="💬 Chat">
                             <field name="message_ids" nolabel="1"
-                                   mode="tree" readonly="1"
+                                   mode="list" readonly="1"
                                    widget="one2many">
-                                <tree string="Messages" decoration-info="direction == 'inbound'"
+                                <list string="Messages" decoration-info="direction == 'inbound'"
                                       decoration-success="direction == 'outbound'">
                                     <field name="create_date" string="Time"/>
                                     <field name="direction" string="Dir"
@@ -77,7 +77,7 @@
                                     <field name="body" string="Message"/>
                                     <field name="status" optional="show"/>
                                     <field name="is_read" optional="hide"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>

@@ -6,7 +6,7 @@
         <field name="name">messenger.message.view.list</field>
         <field name="model">messenger.message</field>
         <field name="arch" type="xml">
-            <tree string="Incoming Messages">
+            <list string="Incoming Messages">
                 <field name="received_at"/>
                 <field name="source"/>
                 <field name="sender_name"/>
@@ -18,7 +18,7 @@
                         type="object"
                         class="btn-primary btn-sm"
                         icon="fa-user-plus"/>
-            </tree>
+            </list>
         </field>
     </record>
 
