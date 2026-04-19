@@ -47,7 +47,7 @@
                         <page string="Invoicing Info" invisible="not invoice_id">
                             <field name="invoice_id" readonly="1"/>
                         </page>
-                        <page string="Notes & Documents">
+                        <page string="Notes and Documents">
                             <group>
                                 <field name="attachment_file" filename="attachment_name" widget="binary"/>
                                 <field name="attachment_name" invisible="1"/>
