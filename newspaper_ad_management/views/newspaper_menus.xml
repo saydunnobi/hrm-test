@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_newspaper_root" name="Newspaper Ads" sequence="50" web_icon="fa-newspaper-o"/>
+    
+    <menuitem id="menu_newspaper_orders" name="Ad Orders" parent="menu_newspaper_root" sequence="10"/>
+    <menuitem id="menu_newspaper_preview" name="Availability Preview" parent="menu_newspaper_root" sequence="15" action="action_newspaper_availability_wizard"/>
+    <menuitem id="menu_newspaper_config" name="Configuration" parent="menu_newspaper_root" sequence="20"/>
+    
+    <menuitem id="menu_newspaper_pages" name="Pages" parent="menu_newspaper_config" sequence="10"/>
+    <menuitem id="menu_newspaper_positions" name="Ad Positions" parent="menu_newspaper_config" sequence="20"/>
+    <menuitem id="menu_newspaper_sizes" name="Ad Sizes" parent="menu_newspaper_config" sequence="30"/>
+    <menuitem id="menu_newspaper_customer_types" name="Customer Types" parent="menu_newspaper_config" sequence="40"/>
+    <menuitem id="menu_newspaper_pricelists" name="Ad Pricelists" parent="menu_newspaper_config" sequence="50"/>
+</odoo>

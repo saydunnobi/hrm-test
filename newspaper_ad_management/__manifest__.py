@@ -1,0 +1,23 @@
+{
+    'name': 'Newspaper Advertisement Management',
+    'version': '1.0',
+    'category': 'Sales',
+    'summary': 'Manage Newspaper Ads, Pages, Pricing and Orders',
+    'author': 'Antigravity',
+    'depends': ['base', 'sale_management', 'account'],
+    'data': [
+        'security/ir.model.access.csv',
+        'wizard/newspaper_availability_wizard_views.xml',
+        'data/newspaper_data.xml',
+        'views/newspaper_menus.xml',
+        'views/newspaper_page_views.xml',
+        'views/newspaper_ad_size_views.xml',
+        'views/newspaper_ad_position_views.xml',
+        'views/newspaper_customer_type_views.xml',
+        'views/newspaper_pricelist_views.xml',
+        'views/newspaper_ad_order_views.xml',
+        'views/res_partner_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

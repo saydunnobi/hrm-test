@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_newspaper_page,newspaper.page,model_newspaper_page,base.group_user,1,1,1,1
+access_newspaper_ad_size,newspaper.ad.size,model_newspaper_ad_size,base.group_user,1,1,1,1
+access_newspaper_ad_position,newspaper.ad.position,model_newspaper_ad_position,base.group_user,1,1,1,1
+access_newspaper_customer_type,newspaper.customer.type,model_newspaper_customer_type,base.group_user,1,1,1,1
+access_newspaper_ad_pricelist,newspaper.ad.pricelist,model_newspaper_ad_pricelist,base.group_user,1,1,1,1
+access_newspaper_ad_order,newspaper.ad.order,model_newspaper_ad_order,base.group_user,1,1,1,1
+access_newspaper_availability_wizard,newspaper.availability.wizard,model_newspaper_availability_wizard,base.group_user,1,1,1,1

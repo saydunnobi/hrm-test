@@ -1,0 +1,7 @@
+from . import newspaper_page
+from . import newspaper_ad_size
+from . import newspaper_ad_position
+from . import newspaper_customer_type
+from . import newspaper_pricelist
+from . import newspaper_ad_order
+from . import res_partner

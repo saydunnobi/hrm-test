@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_newspaper_page_form" model="ir.ui.view">
+        <field name="name">newspaper.page.form</field>
+        <field name="model">newspaper.page</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Ad Positions">
+                            <field name="position_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="base_price"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_newspaper_page_tree" model="ir.ui.view">
+        <field name="name">newspaper.page.list</field>
+        <field name="model">newspaper.page</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_newspaper_page" model="ir.actions.act_window">
+        <field name="name">Pages</field>
+        <field name="res_model">newspaper.page</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_action_newspaper_pages" parent="menu_newspaper_pages" action="action_newspaper_page"/>
+</odoo>

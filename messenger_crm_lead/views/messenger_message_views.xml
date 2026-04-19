@@ -117,7 +117,6 @@
         <field name="name">Convert to Lead</field>
         <field name="model_id" ref="messenger_crm_lead.model_messenger_message"/>
         <field name="binding_model_id" ref="messenger_crm_lead.model_messenger_message"/>
-        <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">records.action_convert_all_to_leads()</field>
     </record>

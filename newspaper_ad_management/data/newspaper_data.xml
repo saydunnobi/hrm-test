@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_newspaper_ad_order" model="ir.sequence">
+            <field name="name">Newspaper Ad Order</field>
+            <field name="code">newspaper.ad.order</field>
+            <field name="prefix">AD/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        
+        <record id="page_1" model="newspaper.page">
+            <field name="name">Page 1</field>
+        </record>
+        <record id="page_2" model="newspaper.page">
+            <field name="name">Page 2</field>
+        </record>
+        <record id="page_3" model="newspaper.page">
+            <field name="name">Page 3</field>
+        </record>
+        <record id="page_4" model="newspaper.page">
+            <field name="name">Page 4</field>
+        </record>
+        <record id="page_5" model="newspaper.page">
+            <field name="name">Page 5</field>
+        </record>
+        <record id="page_6" model="newspaper.page">
+            <field name="name">Page 6</field>
+        </record>
+        <record id="page_7" model="newspaper.page">
+            <field name="name">Page 7</field>
+        </record>
+        <record id="page_8" model="newspaper.page">
+            <field name="name">Page 8</field>
+        </record>
+        <record id="page_9" model="newspaper.page">
+            <field name="name">Page 9</field>
+        </record>
+        <record id="page_10" model="newspaper.page">
+            <field name="name">Page 10</field>
+        </record>
+        <record id="page_11" model="newspaper.page">
+            <field name="name">Page 11</field>
+        </record>
+        <record id="page_12" model="newspaper.page">
+            <field name="name">Page 12</field>
+        </record>
+    </data>
+</odoo>

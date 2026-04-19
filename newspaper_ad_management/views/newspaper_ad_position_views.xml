@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_newspaper_ad_position_form" model="ir.ui.view">
+        <field name="name">newspaper.ad.position.form</field>
+        <field name="model">newspaper.ad.position</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="page_id"/>
+                            <field name="base_price"/>
+                        </group>
+                        <group>
+                            <field name="booking_status" widget="badge" decoration-success="booking_status == 'available'" decoration-danger="booking_status == 'booked'"/>
+                            <field name="current_ad_order_id" invisible="booking_status != 'booked'"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_newspaper_ad_position_tree" model="ir.ui.view">
+        <field name="name">newspaper.ad.position.list</field>
+        <field name="model">newspaper.ad.position</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="page_id"/>
+                <field name="base_price"/>
+                <field name="booking_status" widget="badge" decoration-success="booking_status == 'available'" decoration-danger="booking_status == 'booked'"/>
+                <field name="current_ad_order_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_newspaper_ad_position_kanban" model="ir.ui.view">
+        <field name="name">newspaper.ad.position.kanban</field>
+        <field name="model">newspaper.ad.position</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="page_id">
+                <field name="name"/>
+                <field name="page_id"/>
+                <field name="booking_status"/>
+                <field name="current_ad_order_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click {{ record.booking_status.raw_value == 'booked' ? 'border border-danger' : 'border border-success' }}">
+                            <div class="o_kanban_record_top mb-0">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <span t-if="record.booking_status.raw_value == 'booked'" class="badge rounded-pill text-bg-danger">Booked</span>
+                                    <span t-if="record.booking_status.raw_value == 'available'" class="badge rounded-pill text-bg-success">Available</span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-2">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-if="record.booking_status.raw_value == 'booked'" class="text-muted">
+                                        <i class="fa fa-file-text-o"/> <field name="current_ad_order_id"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_newspaper_ad_position_search" model="ir.ui.view">
+        <field name="name">newspaper.ad.position.search</field>
+        <field name="model">newspaper.ad.position</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="page_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Page" name="group_page" context="{'group_by':'page_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_newspaper_ad_position" model="ir.actions.act_window">
+        <field name="name">Ad Positions</field>
+        <field name="res_model">newspaper.ad.position</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_newspaper_ad_position_search"/>
+    </record>
+
+    <menuitem id="menu_action_newspaper_positions" parent="menu_newspaper_config" action="action_newspaper_ad_position"/>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_newspaper_availability_wizard_form" model="ir.ui.view">
+        <field name="name">newspaper.availability.wizard.form</field>
+        <field name="model">newspaper.availability.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Check Availability">
+                <group>
+                    <field name="check_date"/>
+                </group>
+                <footer>
+                    <button name="action_check_availability" string="Show Preview" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_newspaper_availability_wizard" model="ir.actions.act_window">
+        <field name="name">Availability Preview</field>
+        <field name="res_model">newspaper.availability.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
