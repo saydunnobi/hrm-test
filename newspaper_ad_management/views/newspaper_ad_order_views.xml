@@ -47,8 +47,16 @@
                         <page string="Invoicing Info" invisible="not invoice_id">
                             <field name="invoice_id" readonly="1"/>
                         </page>
+                        <page string="Notes">
+                            <field name="note" placeholder="Write any additional notes, conditions, or terms here..."/>
+                        </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
