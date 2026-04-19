@@ -46,7 +46,7 @@
                 <field name="booking_status"/>
                 <field name="current_ad_order_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click {{ record.booking_status.raw_value == 'booked' ? 'border border-danger' : 'border border-success' }}">
                             <div class="o_kanban_record_top mb-0">
                                 <div class="o_kanban_record_headings">
