@@ -5,3 +5,6 @@ from . import newspaper_customer_type
 from . import newspaper_pricelist
 from . import newspaper_ad_order
 from . import res_partner
+from . import newspaper_sales_achievement
+from . import newspaper_category
+from . import newspaper_color

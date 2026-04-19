@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sales Achievement Views -->
+    <record id="action_newspaper_sales_achievement" model="ir.actions.act_window">
+        <field name="name">Sales Achievements</field>
+        <field name="res_model">newspaper.sales.achievement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Category Views -->
+    <record id="action_newspaper_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">newspaper.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Color Views -->
+    <record id="action_newspaper_color" model="ir.actions.act_window">
+        <field name="name">Color / BW</field>
+        <field name="res_model">newspaper.color</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_newspaper_sales_achievement" name="Sales Achievements" parent="menu_newspaper_config" sequence="60" action="action_newspaper_sales_achievement"/>
+    <menuitem id="menu_newspaper_category" name="Categories" parent="menu_newspaper_config" sequence="70" action="action_newspaper_category"/>
+    <menuitem id="menu_newspaper_color" name="Color / BW" parent="menu_newspaper_config" sequence="80" action="action_newspaper_color"/>
+</odoo>

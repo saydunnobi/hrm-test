@@ -15,6 +15,7 @@
         'views/newspaper_ad_position_views.xml',
         'views/newspaper_customer_type_views.xml',
         'views/newspaper_pricelist_views.xml',
+        'views/newspaper_misc_views.xml',
         'views/newspaper_ad_order_views.xml',
         'views/res_partner_views.xml',
     ],

@@ -6,3 +6,6 @@ access_newspaper_customer_type,newspaper.customer.type,model_newspaper_customer_
 access_newspaper_ad_pricelist,newspaper.ad.pricelist,model_newspaper_ad_pricelist,base.group_user,1,1,1,1
 access_newspaper_ad_order,newspaper.ad.order,model_newspaper_ad_order,base.group_user,1,1,1,1
 access_newspaper_availability_wizard,newspaper.availability.wizard,model_newspaper_availability_wizard,base.group_user,1,1,1,1
+access_newspaper_sales_achievement,newspaper.sales.achievement,model_newspaper_sales_achievement,base.group_user,1,1,1,1
+access_newspaper_category,newspaper.category,model_newspaper_category,base.group_user,1,1,1,1
+access_newspaper_color,newspaper.color,model_newspaper_color,base.group_user,1,1,1,1

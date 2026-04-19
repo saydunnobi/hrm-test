@@ -25,6 +25,16 @@ class NewspaperAdOrder(models.Model):
     
     # Add an income account for journal entries based on user request
     income_account_id = fields.Many2one('account.account', string='Income Account', domain="[('account_type', '=', 'income')]")
+
+    # New fields added as per request
+    sales_achievement_ids = fields.Many2many('newspaper.sales.achievement', string='Sales Achievements')
+    category_ids = fields.Many2many('newspaper.category', string='Category')
+    area_breakdown = fields.Char(string='Area Break-Down')
+    district = fields.Char(string='District')
+    upazila = fields.Char(string='Upazila')
+    color_ids = fields.Many2many('newspaper.color', string='Color/BW')
+    work_order = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Work Order')
+    sales_person_id = fields.Many2one('res.partner', string='Sales Person')
     
     base_price = fields.Float(string='Calculated Price', compute='_compute_price', store=True)
     total_price = fields.Float(string='Total Price', compute='_compute_price', store=True)

@@ -43,6 +43,20 @@
                             <field name="total_price"/>
                         </group>
                     </group>
+                    <group>
+                        <group string="Configuration Details">
+                            <field name="category_ids" widget="many2many_tags"/>
+                            <field name="color_ids" widget="many2many_tags"/>
+                            <field name="sales_achievement_ids" widget="many2many_tags"/>
+                            <field name="work_order"/>
+                            <field name="sales_person_id"/>
+                        </group>
+                        <group string="Geographic Breakdown">
+                            <field name="area_breakdown"/>
+                            <field name="district"/>
+                            <field name="upazila"/>
+                        </group>
+                    </group>
                     <notebook>
                         <page string="Invoicing Info" invisible="not invoice_id">
                             <field name="invoice_id" readonly="1"/>
