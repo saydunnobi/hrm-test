@@ -38,11 +38,12 @@ class NewspaperAdOrder(models.Model):
     
     invoice_id = fields.Many2one('account.move', string='Invoice', readonly=True)
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('newspaper.ad.order') or 'New'
-        return super(NewspaperAdOrder, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code('newspaper.ad.order') or 'New'
+        return super(NewspaperAdOrder, self).create(vals_list)
 
     @api.depends('start_date', 'end_date')
     def _compute_duration(self):
