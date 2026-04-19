@@ -37,6 +37,8 @@ class NewspaperAdOrder(models.Model):
     ], string='Status', default='draft')
     
     note = fields.Html(string='Notes')
+    attachment_name = fields.Char(string='Attachment Name')
+    attachment_file = fields.Binary(string='PDF Attachment', attachment=True)
     
     invoice_id = fields.Many2one('account.move', string='Invoice', readonly=True)
 

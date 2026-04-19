@@ -47,10 +47,16 @@
                         <page string="Invoicing Info" invisible="not invoice_id">
                             <field name="invoice_id" readonly="1"/>
                         </page>
-                        <page string="Notes">
+                        <page string="Notes & Documents">
+                            <group>
+                                <field name="attachment_file" filename="attachment_name" widget="binary"/>
+                                <field name="attachment_name" invisible="1"/>
+                            </group>
+                            <separator string="Additional Notes"/>
                             <field name="note" placeholder="Write any additional notes, conditions, or terms here..."/>
                         </page>
                     </notebook>
+                </sheet>
             </form>
         </field>
     </record>
