@@ -91,7 +91,7 @@
                 <filter string="Open" name="open" domain="[('state','=','open')]"/>
                 <filter string="Converted" name="converted" domain="[('state','=','converted')]"/>
                 <filter string="Has Unread" name="unread" domain="[('unread_count','>',0)]"/>
-                <group expand="0" string="Group By">
+                <group string="Group By">
                     <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
                     <filter string="Date" name="group_date" context="{'group_by':'last_message_at'}"/>
                 </group>

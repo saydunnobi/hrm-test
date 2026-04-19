@@ -85,7 +85,7 @@
                 <separator/>
                 <filter string="Facebook Messenger" name="messenger" domain="[('source','=','messenger')]"/>
                 <filter string="Instagram DM" name="instagram" domain="[('source','=','instagram')]"/>
-                <group expand="0" string="Group By">
+                <group string="Group By">
                     <filter string="Source" name="group_source" context="{'group_by':'source'}"/>
                     <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
                     <filter string="Date" name="group_date" context="{'group_by':'received_at:day'}"/>

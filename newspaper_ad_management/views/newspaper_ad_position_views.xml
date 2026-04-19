@@ -80,7 +80,7 @@
             <search>
                 <field name="name"/>
                 <field name="page_id"/>
-                <group expand="0" string="Group By">
+                <group string="Group By">
                     <filter string="Page" name="group_page" context="{'group_by':'page_id'}"/>
                 </group>
             </search>
