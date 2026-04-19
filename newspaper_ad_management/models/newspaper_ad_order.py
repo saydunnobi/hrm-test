@@ -3,7 +3,6 @@ from dateutil.relativedelta import relativedelta
 
 class NewspaperAdOrder(models.Model):
     _name = 'newspaper.ad.order'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Newspaper Ad Order'
 
     name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True, default='New')
@@ -35,7 +34,7 @@ class NewspaperAdOrder(models.Model):
         ('confirmed', 'Confirmed'),
         ('invoiced', 'Invoiced'),
         ('cancel', 'Cancelled'),
-    ], string='Status', default='draft', tracking=True)
+    ], string='Status', default='draft')
     
     note = fields.Html(string='Notes')
     

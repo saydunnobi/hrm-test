@@ -4,7 +4,7 @@
     'category': 'Sales',
     'summary': 'Manage Newspaper Ads, Pages, Pricing and Orders',
     'author': 'Antigravity',
-    'depends': ['base', 'sale_management', 'account', 'mail'],
+    'depends': ['base', 'sale_management', 'account'],
     'data': [
         'security/ir.model.access.csv',
         'wizard/newspaper_availability_wizard_views.xml',
