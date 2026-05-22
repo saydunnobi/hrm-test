@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_subcontract_project_form" model="ir.ui.view">
+        <field name="name">subcontract.project.form</field>
+        <field name="model">subcontract.project</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Project Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="project_value"/>
+                        </group>
+                        <group>
+                            <field name="total_cost"/>
+                            <field name="net_profit"/>
+                            <field name="profit_margin" widget="progressbar"/>
+                            <field name="completion_percent" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="assigned_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="state"/>
+                                    <field name="oee_total" widget="progressbar"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_subcontract_project_tree" model="ir.ui.view">
+        <field name="name">subcontract.project.tree</field>
+        <field name="model">subcontract.project</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="project_value"/>
+                <field name="net_profit"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_subcontract_project" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">subcontract.project</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_subcontract_project_action"
+              name="All Projects"
+              parent="menu_subcontract_projects"
+              action="action_subcontract_project"
+              sequence="10"/>
+</odoo>

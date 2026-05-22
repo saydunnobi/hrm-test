@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top Menu Items -->
+        <menuitem id="menu_subcontract_root"
+                  name="Subcontracting"
+                  web_icon="subcontract_management,static/description/icon.png"
+                  sequence="20"/>
+
+        <menuitem id="menu_subcontract_projects"
+                  name="Projects"
+                  parent="menu_subcontract_root"
+                  sequence="10"/>
+
+        <!-- Menu Action will be added in project_views.xml -->
+    </data>
+</odoo>

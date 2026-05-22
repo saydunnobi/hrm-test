@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="subcontract_dashboard">
+        <div class="subcontract_dashboard_wrapper">
+            <h1 class="mb-4">Subcontract Dashboard</h1>
+            <div class="grid-container mb-4">
+                <div class="subcontract-card">
+                    <h3>Total Projects</h3>
+                    <div class="kpi-value"><t t-esc="state.stats.total_projects"/></div>
+                </div>
+                <div class="subcontract-card">
+                    <h3>Active Tasks</h3>
+                    <div class="kpi-value"><t t-esc="state.stats.active_tasks"/></div>
+                </div>
+                <div class="subcontract-card">
+                    <h3>Average OEE (%)</h3>
+                    <div class="kpi-value"><t t-esc="state.stats.avg_oee.toFixed(2)"/></div>
+                </div>
+                <!-- Net Profit card -->
+                <div class="subcontract-card">
+                    <h3>Total Profit</h3>
+                    <div class="kpi-value"><t t-esc="state.stats.total_profit"/></div>
+                </div>
+            </div>
+
+            <!-- Delayed tasks table -->
+            <div class="subcontract-card mt-4">
+                <h3>Delayed Tasks</h3>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Project</th>
+                            <th>Vendor</th>
+                            <th>Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.delayed_tasks" t-as="task" t-key="task.id">
+                            <td><t t-esc="task.name"/></td>
+                            <td><t t-esc="task.project_id[1]"/></td>
+                            <td><t t-esc="task.vendor_id ? task.vendor_id[1] : 'Internal'"/></td>
+                            <td class="text-danger"><t t-esc="task.deadline"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

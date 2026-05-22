@@ -1,0 +1,34 @@
+.subcontract_dashboard_wrapper {
+    padding: 16px;
+    background-color: #f9f9fb;
+    height: 100vh;
+    overflow-y: auto;
+}
+.subcontract-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.subcontract-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+.subcontract-card h3 {
+    margin-top: 0;
+    color: #334155;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.kpi-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 10px 0;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}

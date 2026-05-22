@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_subcontract_task_form" model="ir.ui.view">
+        <field name="name">subcontract.task.form</field>
+        <field name="model">subcontract.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_assign" string="Assign" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_in_progress" string="Start Work" type="object" class="oe_highlight" invisible="state != 'assigned'"/>
+                    <button name="action_done" string="Finish" type="object" class="oe_highlight" invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state in ('done','cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,assigned,in_progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Task Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="assigned_type"/>
+                            <field name="vendor_id" invisible="assigned_type != 'vendor'"/>
+                            <field name="purchase_order_id" invisible="not purchase_order_id"/>
+                        </group>
+                        <group>
+                            <field name="deadline"/>
+                            <field name="priority"/>
+                            <field name="vendor_cost" invisible="assigned_type != 'vendor'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Tracking">
+                            <group>
+                                <group>
+                                    <field name="planned_qty"/>
+                                    <field name="actual_qty"/>
+                                    <field name="good_qty"/>
+                                    <field name="rejected_qty"/>
+                                </group>
+                                <group>
+                                    <field name="start_time"/>
+                                    <field name="end_time"/>
+                                    <field name="planned_time"/>
+                                    <field name="actual_time"/>
+                                    <field name="downtime"/>
+                                    <field name="ideal_time_per_unit"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="OEE (Performance)">
+                            <group>
+                                <field name="oee_availability" widget="progressbar"/>
+                                <field name="oee_performance" widget="progressbar"/>
+                                <field name="oee_quality" widget="progressbar"/>
+                                <field name="oee_total" widget="progressbar"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_subcontract_task_tree" model="ir.ui.view">
+        <field name="name">subcontract.task.tree</field>
+        <field name="model">subcontract.task</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="assigned_type"/>
+                <field name="vendor_id"/>
+                <field name="state"/>
+                <field name="oee_total" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_subcontract_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">subcontract.task</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_subcontract_tasks"
+              name="Tasks"
+              parent="menu_subcontract_root"
+              action="action_subcontract_task"
+              sequence="20"/>
+</odoo>
