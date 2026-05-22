@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_whatsapp_conversation_user,whatsapp.conversation.user,whatsapp_redirect.model_whatsapp_conversation,base.group_user,1,1,1,0
-access_whatsapp_conversation_manager,whatsapp.conversation.manager,whatsapp_redirect.model_whatsapp_conversation,base.group_system,1,1,1,1
-access_whatsapp_message_user,whatsapp.message.user,whatsapp_redirect.model_whatsapp_message,base.group_user,1,1,1,0
-access_whatsapp_message_manager,whatsapp.message.manager,whatsapp_redirect.model_whatsapp_message,base.group_system,1,1,1,1
-access_whatsapp_send_wizard_user,whatsapp.send.wizard.user,whatsapp_redirect.model_whatsapp_send_wizard,base.group_user,1,1,1,1

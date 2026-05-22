@@ -5,7 +5,7 @@
 #  License: LGPL-3
 # ============================================================================
 {
-    'name': 'WhatsApp Business Chat ovi',
+    'name': 'WhatsApp Business Chat Ovi',
     'version': '19.0.1.0.0',
     'category': 'Discuss/WhatsApp',
     'summary': 'Use WhatsApp Business from Odoo — send, receive messages and create CRM leads. One number. One inbox.',
@@ -20,7 +20,7 @@ Login with your WhatsApp Business number and use Odoo like your personal WhatsAp
 - Supports text, emojis
 - Webhook powered by Meta WhatsApp Cloud API
     """,
-    'author': 'Kazi Md Saydunnobi',
+    'author': 'Saydun Nobi',
     'depends': ['mail', 'crm', 'contacts'],
     'data': [
         'security/ir.model.access.csv',

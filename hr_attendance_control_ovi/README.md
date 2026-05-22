@@ -25,10 +25,10 @@ From **Settings → Attendance**, you can:
 
 ## Installation
 
-1. Copy the `hr_attendance_control` folder into your Odoo `addons` path.
+1. Copy the `hr_attendance_control_ovi` folder into your Odoo `addons` path.
 2. Restart the Odoo server.
 3. Activate **Developer Mode**.
-4. Go to **Apps**, search for `HR Attendance Control`, and click **Install**.
+4. Go to **Apps**, search for `HR Attendance Control Ovi`, and click **Install**.
 
 ---
 

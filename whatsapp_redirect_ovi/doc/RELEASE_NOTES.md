@@ -1,4 +1,4 @@
-## Module <whatsapp_redirect>
+## Module <whatsapp_redirect_ovi>
 
 #### 05.10.2024
 #### Version 18.0.1.0.0

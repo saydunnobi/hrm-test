@@ -59,11 +59,11 @@ class HrAttendance(models.Model):
         login/check-in window configured in Settings.
         Restriction can span midnight (e.g. 23:00 – 05:00).
         """
-        if not self._get_param_bool('hr_attendance_control.restrict_login'):
+        if not self._get_param_bool('hr_attendance_control_ovi.restrict_login'):
             return
 
-        restrict_from = self._get_param_float('hr_attendance_control.restrict_from')
-        restrict_to = self._get_param_float('hr_attendance_control.restrict_to')
+        restrict_from = self._get_param_float('hr_attendance_control_ovi.restrict_from')
+        restrict_to = self._get_param_float('hr_attendance_control_ovi.restrict_to')
 
         if restrict_from == restrict_to:
             return  # No restriction configured
@@ -134,7 +134,7 @@ class HrAttendance(models.Model):
             self._check_restricted_time()
 
             # 2. Force-checkout any existing open attendance for this employee
-            if self._get_param_bool('hr_attendance_control.force_checkout', True):
+            if self._get_param_bool('hr_attendance_control_ovi.force_checkout', True):
                 self._force_checkout_open_attendances(employee)
 
         return super().create(vals_list)
@@ -189,7 +189,7 @@ class HrAttendance(models.Model):
             open_today.write({'check_out': checkout_today_utc})
 
         # ── 2. Close previous days' open attendances (if setting enabled) ───
-        if self._get_param_bool('hr_attendance_control.checkout_previous_days', True):
+        if self._get_param_bool('hr_attendance_control_ovi.checkout_previous_days', True):
             open_previous = self.env['hr.attendance'].sudo().search([
                 ('check_out', '=', False),
                 ('check_in', '<', today_start_utc),
@@ -229,12 +229,12 @@ class ResUsers(models.Model):
             return result
 
         ICP = self.env['ir.config_parameter'].sudo()
-        if not str(ICP.get_param('hr_attendance_control.restrict_login', 'False')).lower() in ('1', 'true', 'yes'):
+        if not str(ICP.get_param('hr_attendance_control_ovi.restrict_login', 'False')).lower() in ('1', 'true', 'yes'):
             return result
 
         try:
-            restrict_from = float(ICP.get_param('hr_attendance_control.restrict_from', 0.0))
-            restrict_to = float(ICP.get_param('hr_attendance_control.restrict_to', 0.0))
+            restrict_from = float(ICP.get_param('hr_attendance_control_ovi.restrict_from', 0.0))
+            restrict_to = float(ICP.get_param('hr_attendance_control_ovi.restrict_to', 0.0))
         except (TypeError, ValueError):
             return result
 

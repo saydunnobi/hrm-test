@@ -3,7 +3,7 @@
     <menuitem id="menu_whatsapp_root"
               name="WhatsApp"
               sequence="5"
-              web_icon="whatsapp_redirect,static/description/icon.png"/>
+              web_icon="whatsapp_redirect_ovi,static/description/icon.png"/>
 
     <menuitem id="menu_whatsapp_inbox"
               name="Inbox"

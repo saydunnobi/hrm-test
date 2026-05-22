@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app string="WhatsApp Business" name="whatsapp_redirect" groups="base.group_system">
+                <app string="WhatsApp Business" name="whatsapp_redirect_ovi" groups="base.group_system">
                     <block title="WhatsApp Business Cloud API" name="whatsapp_settings_block">
                         <setting string="Phone Number ID"
                                  help="Found in Meta Developer Console → WhatsApp → API Setup. Example: 123456789012345">

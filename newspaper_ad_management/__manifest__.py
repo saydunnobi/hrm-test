@@ -1,6 +1,6 @@
 {
     'name': 'Newspaper Advertisement Management',
-    'version': '1.0',
+    'version': '19.0.1.0',
     'category': 'Sales',
     'summary': 'Manage Newspaper Ads, Pages, Pricing and Orders',
     'author': 'Kazi Md Saydunnobi',
