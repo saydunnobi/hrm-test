@@ -3,7 +3,7 @@
     'version': '1.0',
     'category': 'Sales',
     'summary': 'Manage Newspaper Ads, Pages, Pricing and Orders',
-    'author': 'Antigravity',
+    'author': 'Kazi Md Saydunnobi',
     'depends': ['base', 'sale_management', 'account'],
     'data': [
         'security/ir.model.access.csv',
