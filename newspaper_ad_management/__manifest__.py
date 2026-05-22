@@ -21,4 +21,8 @@
     ],
     'installable': True,
     'application': True,
+    'icon': 'static/description/icon.png',
+    'images': ['static/description/banner.png'],
+    'license': 'LGPL-3',
+    'description': """<p>Manage newspaper advertisements, pages, pricing, and orders with a sleek Odoo interface.</p>""",
 }
