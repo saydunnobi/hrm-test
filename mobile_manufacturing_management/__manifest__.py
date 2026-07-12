@@ -3,7 +3,7 @@
     "summary": "End-to-end mobile production, raw material QC, IMEI, rework, barcode QC and box packaging",
     "version": "19.0.1.0.0",
     "category": "Manufacturing/Manufacturing",
-    "author": "Zencore Solutions Ltd",
+    "author": "Kazi Md Saydunnobi",
     "website": "https://zencore.com.bd",
     "license": "LGPL-3",
     "depends": [
