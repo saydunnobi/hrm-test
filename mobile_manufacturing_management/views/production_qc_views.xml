@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mobile_production_qc_list" model="ir.ui.view">
+        <field name="name">mobile.production.qc.list</field>
+        <field name="model">mobile.production.qc</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'pass'" decoration-danger="state == 'fail'">
+                <field name="name"/>
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="tested_qty"/>
+                <field name="pass_qty"/>
+                <field name="fail_qty"/>
+                <field name="inspector_id"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_production_qc_form" model="ir.ui.view">
+        <field name="name">mobile.production.qc.form</field>
+        <field name="model">mobile.production.qc</field>
+        <field name="arch" type="xml">
+            <form string="Pre-IMEI Production QC">
+                <header>
+                    <button name="action_pass" type="object" string="Pass &amp; Allow IMEI" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_fail" type="object" string="Fail &amp; Create Rework" class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_open_rework" type="object" string="Open Rework" invisible="not rework_id"/>
+                    <button name="action_reset_for_retest" type="object" string="Reset for Re-Test" invisible="state != 'fail'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pass,fail"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="production_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="inspector_id"/>
+                        </group>
+                        <group>
+                            <field name="inspection_date"/>
+                            <field name="tested_qty" readonly="state != 'draft'"/>
+                            <field name="pass_qty" readonly="state != 'draft'"/>
+                            <field name="fail_qty" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Mandatory Batch Checklist" col="3">
+                        <field name="checklist_power"/>
+                        <field name="checklist_display"/>
+                        <field name="checklist_camera"/>
+                        <field name="checklist_audio"/>
+                        <field name="checklist_connectivity"/>
+                        <field name="checklist_cosmetic"/>
+                    </group>
+                    <notebook>
+                        <page string="Inspection Notes"><field name="notes"/></page>
+                        <page string="Rework" invisible="not rework_id"><field name="rework_id"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_production_qc" model="ir.actions.act_window">
+        <field name="name">Production QC</field>
+        <field name="res_model">mobile.production.qc</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

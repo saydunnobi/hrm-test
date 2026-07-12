@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_mobile_raw_receipt" model="ir.sequence">
+        <field name="name">Mobile Raw Material Receipt</field>
+        <field name="code">mobile.raw.receipt</field>
+        <field name="prefix">RMR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_raw_qc" model="ir.sequence">
+        <field name="name">Mobile Raw Material QC</field>
+        <field name="code">mobile.raw.qc</field>
+        <field name="prefix">RMQC/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_material_requisition" model="ir.sequence">
+        <field name="name">Mobile Material Requisition</field>
+        <field name="code">mobile.material.requisition</field>
+        <field name="prefix">PMR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_production_qc" model="ir.sequence">
+        <field name="name">Mobile Production QC</field>
+        <field name="code">mobile.production.qc</field>
+        <field name="prefix">PQC/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_device_qc" model="ir.sequence">
+        <field name="name">Mobile Device QC</field>
+        <field name="code">mobile.device.qc</field>
+        <field name="prefix">DQC/%(year)s/</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_rework" model="ir.sequence">
+        <field name="name">Mobile Rework Order</field>
+        <field name="code">mobile.rework.order</field>
+        <field name="prefix">RW/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_packaging" model="ir.sequence">
+        <field name="name">Mobile Packaging Box</field>
+        <field name="code">mobile.packaging.batch</field>
+        <field name="prefix">BOX/%(year)s/</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_imei_serial" model="ir.sequence">
+        <field name="name">Automatic IMEI Serial Portion</field>
+        <field name="code">mobile.imei.serial</field>
+        <field name="prefix"></field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

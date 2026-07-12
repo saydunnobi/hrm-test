@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_mobile_manufacturing" model="ir.module.category">
+        <field name="name">Mobile Manufacturing</field>
+        <field name="description">End-to-end mobile manufacturing and IMEI quality management.</field>
+        <field name="sequence">35</field>
+    </record>
+
+    <record id="privilege_mobile_manufacturing" model="res.groups.privilege">
+        <field name="name">Mobile Manufacturing</field>
+        <field name="category_id" ref="module_category_mobile_manufacturing"/>
+        <field name="sequence">35</field>
+    </record>
+
+    <record id="group_mobile_mfg_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="privilege_id" ref="privilege_mobile_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('mrp.group_mrp_user')), (4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="group_mobile_mfg_qc" model="res.groups">
+        <field name="name">Quality Inspector</field>
+        <field name="privilege_id" ref="privilege_mobile_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('mobile_manufacturing_management.group_mobile_mfg_user'))]"/>
+    </record>
+
+    <record id="group_mobile_mfg_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="privilege_id" ref="privilege_mobile_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('mobile_manufacturing_management.group_mobile_mfg_qc')), (4, ref('mrp.group_mrp_manager')), (4, ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    <record id="rule_mobile_mfg_config_company" model="ir.rule">
+        <field name="name">Mobile Configuration: company</field>
+        <field name="model_id" ref="model_mobile_mfg_config"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_raw_receipt_company" model="ir.rule">
+        <field name="name">Raw Receipt: company</field>
+        <field name="model_id" ref="model_mobile_raw_receipt"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_raw_qc_company" model="ir.rule">
+        <field name="name">Raw QC: company</field>
+        <field name="model_id" ref="model_mobile_raw_qc"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_material_requisition_company" model="ir.rule">
+        <field name="name">Material Requisition: company</field>
+        <field name="model_id" ref="model_mobile_material_requisition"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_production_qc_company" model="ir.rule">
+        <field name="name">Production QC: company</field>
+        <field name="model_id" ref="model_mobile_production_qc"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_device_company" model="ir.rule">
+        <field name="name">Mobile Device: company</field>
+        <field name="model_id" ref="model_mobile_device"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_device_qc_company" model="ir.rule">
+        <field name="name">Device QC: company</field>
+        <field name="model_id" ref="model_mobile_device_qc"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_rework_company" model="ir.rule">
+        <field name="name">Rework: company</field>
+        <field name="model_id" ref="model_mobile_rework_order"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="rule_mobile_packaging_company" model="ir.rule">
+        <field name="name">Packaging: company</field>
+        <field name="model_id" ref="model_mobile_packaging_batch"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

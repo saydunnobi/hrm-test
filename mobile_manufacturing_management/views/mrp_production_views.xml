@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_production_form_mobile_mfg" model="ir.ui.view">
+        <field name="name">mrp.production.form.mobile.manufacturing</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_production_qc" type="object" class="oe_stat_button" icon="fa-check-square-o" invisible="not is_mobile_manufacturing">
+                    <field name="production_qc_id" widget="statinfo" string="Production QC"/>
+                </button>
+                <button name="action_open_mobile_devices" type="object" class="oe_stat_button" icon="fa-barcode" invisible="not is_mobile_manufacturing">
+                    <field name="mobile_device_count" widget="statinfo" string="IMEIs"/>
+                </button>
+                <button name="action_open_mobile_reworks" type="object" class="oe_stat_button" icon="fa-wrench" invisible="not is_mobile_manufacturing">
+                    <field name="mobile_rework_count" widget="statinfo" string="Reworks"/>
+                </button>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_create_production_qc" type="object" string="Production QC" class="btn-primary" invisible="not is_mobile_manufacturing or production_qc_id or state in ['draft', 'done', 'cancel']"/>
+                <button name="action_open_imei_wizard" type="object" string="Generate / Import IMEI" class="btn-primary" invisible="not is_mobile_manufacturing or mobile_flow_state != 'imei_ready'"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Mobile Manufacturing" invisible="not is_mobile_manufacturing">
+                    <group>
+                        <group>
+                            <field name="is_mobile_manufacturing"/>
+                            <field name="mobile_requisition_id"/>
+                            <field name="mobile_config_id"/>
+                        </group>
+                        <group>
+                            <field name="mobile_flow_state" widget="badge"/>
+                            <field name="production_qc_id"/>
+                            <field name="mobile_device_count"/>
+                        </group>
+                    </group>
+                    <field name="mobile_device_ids" readonly="1">
+                        <list>
+                            <field name="imei_1"/>
+                            <field name="imei_2" optional="show"/>
+                            <field name="state" widget="badge"/>
+                            <field name="current_location_id"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

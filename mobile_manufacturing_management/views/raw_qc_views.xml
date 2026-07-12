@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mobile_raw_qc_list" model="ir.ui.view">
+        <field name="name">mobile.raw.qc.list</field>
+        <field name="model">mobile.raw.qc</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'" decoration-warning="state == 'transfer_pending'">
+                <field name="name"/>
+                <field name="receipt_id"/>
+                <field name="partner_id"/>
+                <field name="inspection_date"/>
+                <field name="inspected_by_id"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_raw_qc_form" model="ir.ui.view">
+        <field name="name">mobile.raw.qc.form</field>
+        <field name="model">mobile.raw.qc</field>
+        <field name="arch" type="xml">
+            <form string="Incoming Raw Material QC">
+                <header>
+                    <button name="action_validate_qc" type="object" string="Validate QC &amp; Move Stock" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_check_transfers" type="object" string="Check Completed Transfers" class="btn-primary" invisible="state != 'transfer_pending'"/>
+                    <button name="action_open_pass_picking" type="object" string="Accepted Transfer" invisible="not pass_picking_id"/>
+                    <button name="action_open_fail_picking" type="object" string="Rejected Transfer" invisible="not fail_picking_id"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,transfer_pending,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="receipt_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="inspected_by_id"/>
+                        </group>
+                        <group>
+                            <field name="inspection_date"/>
+                            <field name="pass_picking_id" readonly="1"/>
+                            <field name="fail_picking_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Inspection Lines">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom" decoration-success="result == 'pass'" decoration-danger="result == 'fail'" decoration-warning="result == 'partial'">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="lot_id" readonly="1" optional="show"/>
+                                    <field name="received_qty"/>
+                                    <field name="pass_qty"/>
+                                    <field name="fail_qty"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="result" widget="badge" readonly="1"/>
+                                    <field name="test_notes" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_raw_qc" model="ir.actions.act_window">
+        <field name="name">Incoming Raw Material QC</field>
+        <field name="res_model">mobile.raw.qc</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mobile_material_requisition_list" model="ir.ui.view">
+        <field name="name">mobile.material.requisition.list</field>
+        <field name="model">mobile.material.requisition</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'" decoration-danger="state == 'cancel'" decoration-warning="state == 'waiting_material'">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+                <field name="planned_start"/>
+                <field name="requested_by_id"/>
+                <field name="production_id"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_material_requisition_search" model="ir.ui.view">
+        <field name="name">mobile.material.requisition.search</field>
+        <field name="model">mobile.material.requisition</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="requested_by_id"/>
+                <filter name="open" string="Open" domain="[('state', 'not in', ['done', 'cancel'])]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mobile_material_requisition_form" model="ir.ui.view">
+        <field name="name">mobile.material.requisition.form</field>
+        <field name="model">mobile.material.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Production Material Requisition">
+                <header>
+                    <button name="action_load_bom_materials" type="object" string="Load BoM Materials" invisible="state != 'draft'"/>
+                    <button name="action_submit" type="object" string="Submit" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve_and_issue" type="object" string="Approve &amp; Create Material Issue" class="btn-primary" groups="mobile_manufacturing_management.group_mobile_mfg_manager" invisible="state != 'submitted'"/>
+                    <button name="action_confirm_material_ready" type="object" string="Confirm Material Ready" invisible="state != 'waiting_material'"/>
+                    <button name="action_create_manufacturing_order" type="object" string="Create Manufacturing Order" class="btn-primary" invisible="state != 'material_ready'"/>
+                    <button name="action_open_material_picking" type="object" string="Open Material Issue" invisible="not material_picking_id"/>
+                    <button name="action_open_production" type="object" string="Open Manufacturing Order" invisible="not production_id"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ['done', 'cancel']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,waiting_material,material_ready,in_production,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_material_picking" type="object" class="oe_stat_button" icon="fa-exchange" invisible="not material_picking_id">
+                            <field name="material_picking_id" widget="statinfo" string="Material Issue"/>
+                        </button>
+                        <button name="action_open_production" type="object" class="oe_stat_button" icon="fa-gears" invisible="not production_id">
+                            <field name="production_id" widget="statinfo" string="MO"/>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="config_id" readonly="state != 'draft'"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <field name="product_tmpl_id" invisible="1"/>
+                            <field name="bom_id" readonly="state != 'draft'"/>
+                            <field name="quantity" readonly="state != 'draft'"/>
+                            <field name="uom_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="request_date" readonly="1"/>
+                            <field name="planned_start" readonly="state not in ['draft', 'submitted']"/>
+                            <field name="priority" readonly="state not in ['draft', 'submitted']"/>
+                            <field name="requested_by_id" readonly="1"/>
+                            <field name="approved_by_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Material Requirements">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom" decoration-danger="shortage_qty &gt; 0">
+                                    <field name="product_id"/>
+                                    <field name="required_qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="available_qty" readonly="1"/>
+                                    <field name="shortage_qty" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_material_requisition" model="ir.actions.act_window">
+        <field name="name">Production Requisitions</field>
+        <field name="res_model">mobile.material.requisition</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_mobile_material_requisition_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mobile_packaging_imei_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="text-center mb-3">
+                    <h2>Mobile Packaging Box - IMEI List</h2>
+                    <h4><span t-field="o.name"/></h4>
+                    <span t-field="o.name" t-options="{'widget': 'barcode', 'width': 500, 'height': 70}"/>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <strong>Mobile Model:</strong> <span t-field="o.product_id"/><br/>
+                        <strong>Box Capacity:</strong> <span t-field="o.box_capacity"/><br/>
+                        <strong>Device Quantity:</strong> <span t-field="o.quantity"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Package:</strong> <span t-field="o.package_id"/><br/>
+                        <strong>Packed By:</strong> <span t-field="o.packed_by_id"/><br/>
+                        <strong>Packed Date:</strong> <span t-field="o.packed_date"/>
+                    </div>
+                </div>
+                <table class="table table-sm table-bordered" style="font-size: 10px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 22%;">IMEI 1</th>
+                            <th style="width: 22%;">IMEI 2</th>
+                            <th style="width: 26%;">IMEI 1 Barcode</th>
+                            <th style="width: 25%;">Manufacturing Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids" t-as="line">
+                            <td><span t-field="line.scan_sequence"/></td>
+                            <td><strong><span t-field="line.imei_1"/></strong></td>
+                            <td><span t-field="line.imei_2"/></td>
+                            <td class="text-center">
+                                <span t-field="line.imei_1" t-options="{'widget': 'barcode', 'width': 260, 'height': 45, 'img_style': 'width:130px;height:23px'}"/>
+                            </td>
+                            <td><span t-field="line.production_id"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-3">
+                    <strong>Verification:</strong>
+                    <span>This list was generated from barcode-scanned, QC Stage 2 passed devices.</span>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_mobile_packaging_imei">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="mobile_manufacturing_management.report_mobile_packaging_imei_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>
