@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mobile_mfg_config_list" model="ir.ui.view">
+        <field name="name">mobile.mfg.config.list</field>
+        <field name="model">mobile.mfg.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="warehouse_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="box_capacity"/>
+                <field name="tac_prefix"/>
+                <field name="auto_validate_transfers"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_mfg_config_form" model="ir.ui.view">
+        <field name="name">mobile.mfg.config.form</field>
+        <field name="model">mobile.mfg.config</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Manufacturing Configuration">
+                <header>
+                    <button name="action_setup_locations" type="object" string="Create/Link Locations" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="warehouse_id"/></h1>
+                    </div>
+                    <group>
+                        <group string="General">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="internal_picking_type_id"/>
+                            <field name="manufacturing_picking_type_id"/>
+                            <field name="box_capacity"/>
+                            <field name="auto_validate_transfers"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="IMEI">
+                            <field name="tac_prefix"/>
+                            <field name="enforce_luhn"/>
+                            <div class="text-warning">Use only an officially allocated TAC for real commercial production.</div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Raw Material Locations">
+                            <group>
+                                <field name="incoming_qc_location_id"/>
+                                <field name="raw_material_location_id"/>
+                                <field name="raw_rejected_location_id"/>
+                                <field name="production_input_location_id"/>
+                            </group>
+                        </page>
+                        <page string="Device Flow Locations">
+                            <group>
+                                <field name="qc1_location_id"/>
+                                <field name="qc2_location_id"/>
+                                <field name="rework_location_id"/>
+                                <field name="packaging_location_id"/>
+                                <field name="finished_goods_location_id"/>
+                                <field name="device_rejected_location_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_mfg_config" model="ir.actions.act_window">
+        <field name="name">Configuration</field>
+        <field name="res_model">mobile.mfg.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

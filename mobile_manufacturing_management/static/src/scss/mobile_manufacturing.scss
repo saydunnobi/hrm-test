@@ -1,0 +1,10 @@
+.o_mobile_mfg_scan_panel {
+    border: 1px solid var(--border-color, #d8dadd);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--o-view-background-color, #fff);
+}
+.o_mobile_mfg_scan_panel .o_field_widget[name="_barcode_scanned"] input {
+    font-size: 1.25rem;
+    min-height: 48px;
+}

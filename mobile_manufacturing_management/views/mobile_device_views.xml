@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mobile_device_list" model="ir.ui.view">
+        <field name="name">mobile.device.list</field>
+        <field name="model">mobile.device</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'packed'" decoration-danger="state == 'rejected'" decoration-warning="state in ['rework_qc1', 'rework_qc2']">
+                <field name="imei_1"/>
+                <field name="imei_2" optional="show"/>
+                <field name="product_id"/>
+                <field name="production_id"/>
+                <field name="state" widget="badge"/>
+                <field name="current_location_id"/>
+                <field name="rework_count"/>
+                <field name="packaging_batch_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_device_search" model="ir.ui.view">
+        <field name="name">mobile.device.search</field>
+        <field name="model">mobile.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="imei_1"/>
+                <field name="imei_2"/>
+                <field name="product_id"/>
+                <field name="production_id"/>
+                <filter name="qc1" string="QC 1 Pending" domain="[('state', '=', 'qc1_pending')]"/>
+                <filter name="qc2" string="QC 2 Pending" domain="[('state', '=', 'qc2_pending')]"/>
+                <filter name="rework" string="In Rework" domain="[('state', 'in', ['rework_qc1', 'rework_qc2'])]"/>
+                <filter name="packaging" string="Packaging Ready" domain="[('state', '=', 'packaging_ready')]"/>
+                <filter name="packed" string="Packed" domain="[('state', '=', 'packed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_product" string="Model" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_state" string="Stage" context="{'group_by': 'state'}"/>
+                    <filter name="group_mo" string="Manufacturing Order" context="{'group_by': 'production_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mobile_device_form" model="ir.ui.view">
+        <field name="name">mobile.device.form</field>
+        <field name="model">mobile.device</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Device Traceability">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="awaiting_mo,qc1_pending,rework_qc1,qc2_pending,rework_qc2,packaging_ready,packed,rejected"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_qc_history" type="object" class="oe_stat_button" icon="fa-check-square-o">
+                            <field name="qc_count" widget="statinfo" string="QC Checks"/>
+                        </button>
+                        <button name="action_open_rework_history" type="object" class="oe_stat_button" icon="fa-wrench">
+                            <field name="rework_count" widget="statinfo" string="Reworks"/>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="imei_1"/></h1></div>
+                    <group>
+                        <group string="Identity">
+                            <field name="imei_1" readonly="1"/>
+                            <field name="imei_2" readonly="1"/>
+                            <field name="lot_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                        </group>
+                        <group string="Production &amp; Stock">
+                            <field name="production_id" readonly="1"/>
+                            <field name="requisition_id" readonly="1"/>
+                            <field name="current_location_id" readonly="1"/>
+                            <field name="packaging_batch_id" readonly="1"/>
+                            <field name="package_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="QC History">
+                            <field name="qc_check_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="stage"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="inspector_id"/>
+                                    <field name="scan_time"/>
+                                    <field name="failure_category" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Rework History">
+                            <field name="rework_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="return_stage"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="assigned_to_id"/>
+                                    <field name="start_time"/>
+                                    <field name="end_time"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_device" model="ir.actions.act_window">
+        <field name="name">IMEI Device Registry</field>
+        <field name="res_model">mobile.device</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_mobile_device_search"/>
+    </record>
+</odoo>
